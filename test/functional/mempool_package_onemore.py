@@ -40,7 +40,7 @@ class MempoolPackagesTest(BitcoinTestFramework):
         for _ in range(DEFAULT_ANCESTOR_LIMIT - 4):
             utxo, = self.chain_tx([utxo])
             chain.append(utxo)
-        second_chain, = self.chain_tx([self.wallet.get_utxo()])
+        second_chain, = self.chain_tx([self.wallet.get_utxo(confirmed_only=True)])
 
         # Check mempool has DEFAULT_ANCESTOR_LIMIT + 1 transactions in it
         assert_equal(len(self.nodes[0].getrawmempool()), DEFAULT_ANCESTOR_LIMIT + 1)
@@ -77,4 +77,4 @@ class MempoolPackagesTest(BitcoinTestFramework):
 
 
 if __name__ == '__main__':
-    MempoolPackagesTest().main()
+    MempoolPackagesTest(__file__).main()
